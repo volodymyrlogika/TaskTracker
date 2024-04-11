@@ -4,9 +4,10 @@
    <div class="container">
    {% include 'alerts.html' %}
    <h1 class="text-center">TaskTrack</h1>
+       <a class="btn btn btn-outline-light my-3" href="{% url 'tasks:task-create' %}" role="button"><i class="bi bi-plus-square me-1"></i>New task</a>
        <div class="list-group">
         {% for task in tasks %}
-           <a href="#" class="list-group-item list-group-item-action" aria-current="true">
+           <a href="{% url 'tasks:task-update' task.pk %}" class="list-group-item list-group-item-action" aria-current="true">
                {{ task.title }}
                <span class="badge text-bg-primary">{{task.get_status_display  }}</span>
                <span class="badge text-bg-warning">{{task.get_priority_display }}</span>
