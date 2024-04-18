@@ -8,6 +8,9 @@
           {% csrf_token %}
             {{ form.as_div }}
            <button type="submit" class="btn btn-light"> Save </button>
+           <a href="{% url 'tasks:task-delete' task.pk %}" class="btn btn-secondary">
+               Delete
+           </a>
        </form>
 
    </div>

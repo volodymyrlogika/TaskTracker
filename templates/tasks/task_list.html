@@ -5,6 +5,12 @@
    {% include 'alerts.html' %}
    <h1 class="text-center">TaskTrack</h1>
        <a class="btn btn btn-outline-light my-3" href="{% url 'tasks:task-create' %}" role="button"><i class="bi bi-plus-square me-1"></i>New task</a>
+
+       <form method="get" class="d-flex gap-3 align-items-end pb-2">
+           {{form.as_div}}
+           <button type="submit" class="btn btn-warning">Filter</button>
+       </form>
+
        <div class="list-group">
         {% for task in tasks %}
            <a href="{% url 'tasks:task-update' task.pk %}" class="list-group-item list-group-item-action" aria-current="true">
