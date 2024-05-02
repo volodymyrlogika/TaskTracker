@@ -31,3 +31,14 @@ class Task(models.Model):
             return self.title
 
 
+class Comment(models.Model):
+    task = models.ForeignKey(Task, on_delete=models.CASCADE, related_name='comments')
+    author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='comments')
+    content = models.TextField(verbose_name="Your comment")
+    created_at = models.DateTimeField(auto_now_add=True)
+    media = models.FileField(upload_to='comment_media', blank=True, null=True)
+
+    def __str__(self):
+        return self.content
+
+

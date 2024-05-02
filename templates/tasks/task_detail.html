@@ -1,18 +1,49 @@
 {% extends 'base.html' %}
 
 {% block content %}
-   <div class="container">
-   {% include 'alerts.html' %}
-   <h1 class="text-center">TaskTrack</h1>
-       <form method="post">
-          {% csrf_token %}
-            {{ form.as_div }}
-           <button type="submit" class="btn btn-light"> Save </button>
-           <a href="{% url 'tasks:task-delete' task.pk %}" class="btn btn-secondary">
-               Delete
-           </a>
-       </form>
+<div class="container">
+    {% include 'alerts.html' %}
 
-   </div>
+    <div class="row">
+        <div class="col-md-8">
+            <form method="post">
+                {% csrf_token %}
+                {{ form.as_div }}
+                <button type="submit" class="btn btn-light"> Save</button>
+                <a href="{% url 'tasks:task-delete' task.pk %}" class="btn btn-secondary">
+                    Delete
+                </a>
+            </form>
+        </div>
+        <div class="col-md-4">
+
+            <form action="{% url 'tasks:comment-create' task.pk %}" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ comment_form.as_div }}
+                <button type="submit" class="btn btn-secondary">Add</button>
+            </form>
+
+            <h3>Comments</h3>
+
+            {% for comment in task.comments.all %}
+                <div class="my-1 p-2 card">
+                     <h5>{{ comment.author.username }}:</h5>
+                    <p>{{comment.content}}</p>
+                    {% if comment.media %}
+                        <a href="{{comment.media.url}}" class="mb-2 tex-white">Open file</a>
+                    {% endif %}
+
+                    <small>{{comment.created_at}}</small>
+
+                </div>
+            {% empty %}
+            <p>No comments here.</p>
+            {% endfor %}
+
+        </div>
+    </div>
+
+
+</div>
 
 {% endblock %}

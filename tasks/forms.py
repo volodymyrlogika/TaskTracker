@@ -13,7 +13,7 @@ class TaskForm(forms.ModelForm):
         for field in self.fields:
             self.fields[field].widget.attrs.update({'class': 'form-control mb-2', })
 
-        self.fields['due_date'].widget = forms.DateInput(attrs={'type': 'date','class': 'form-control mb-2'})
+        self.fields['due_date'].widget = forms.DateInput(attrs={'class': 'form-control mb-2'})
 
 
 class TaskFilterForm(forms.Form):
@@ -29,3 +29,14 @@ class TaskFilterForm(forms.Form):
     def __init__(self, *args, **kwargs):
         super(TaskFilterForm, self).__init__(*args, **kwargs)
         self.fields['status'].widget.attrs.update({'class': 'form-control', })
+
+
+class CommentCreateForm(forms.ModelForm):
+    class Meta:
+        model = models.Comment
+        fields = ['content', 'media']
+        widgets = {'media': forms.FileInput(attrs={'type' : 'file', 'class' : 'form-control mb-2'})}
+    def __init__(self, *args, **kwargs):
+        super(CommentCreateForm, self).__init__(*args, **kwargs)
+        for field in self.fields:
+            self.fields[field].widget.attrs.update({'class': 'form-control mb-2', })
